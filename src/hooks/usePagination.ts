@@ -1,23 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-type PageParams = {
-    filter? : string,
-    page:number
-}
-
 const usePagination = (pageParams: PageParams) => {
-  const { data, isPending } = useQuery({
-    queryKey: ["pagination",pageParams],
+    
+  const { data, isPending } = useQuery<ProductModel[] | undefined>({
+    queryKey: ["pagination", pageParams],
     queryFn: async () => {
       const result = await axios.get(
-        `https://fakestoreapi.in/api/products?page=${page}&limit=20/category?type=${filter}`
+        'https://fakestoreapi.in/api/products?limit=150'
       );
-      console.log(result)
-      
-      return result
+      console.log(result.data.products);
+
+      return result.data.products;
     },
+    select:(products:ProductModel[]|undefined) => {
+        if (pageParams.filter!=='all') {
+            return products?.filter((product) => product.category==pageParams.filter)||undefined
+        }else return products
+    }
   });
-  return {data, isPending};
+  
+  return { data, isPending };
 };
 export default usePagination;

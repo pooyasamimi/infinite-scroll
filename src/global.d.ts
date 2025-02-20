@@ -29,6 +29,12 @@ declare global {
   // }
 
   type Theme = "dark" | "light" | "system";
+
+  type PageParams = {
+    filter: Categories;
+    page: number;
+  };
+  
 }
 
 export {};
