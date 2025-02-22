@@ -1,33 +1,39 @@
 import ProductCard from "./Product";
 import { Button } from "./ui/button";
-import useCategories from "@/hooks/useCategories";
-import { useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 import { ModeToggle } from "./ModeToggle";
 
-import usePagination from "@/hooks/usePagination";
+import useInfiniteProducts from "@/hooks/useInfiniteQuery";
 
 const ProductsContainer = () => {
   // const [filter, setFilter] = useState<Categories | null>("all");
   // const { data: products, isPending: isProductPending } = useProduct({
   //   filter,
   // });
-  const [pageParam, setPageParam] = useState<PageParams>({
-    page: 1,
-    filter: "all",
-  });
-  const { data: products, isPending: isProductPending } =
-    usePagination(pageParam);
+  // const [pageParam, setPageParam] = useState<PageParams>({
+  //   page: 1,
+  //   filter: "all",
+  // });
+  // const { data: products, isPending: isProductPending } =
+  //   usePagination(pageParam);
 
-  const { data: categories, isPending: isCategoriesPending } = useCategories();
+  // const { data: categories, isPending: isCategoriesPending } = useCategories();
+  const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    data: products,
+    isPending: isProductPending,
+  } = useInfiniteProducts();
 
+  
 
   return (
-    <div className="container">
+    <div className="container text-center">
       <div className="text-center mt-12">
         <ModeToggle />
       </div>
-      <div className="flex gap-4 justify-center my-8 flex-wrap">
+      {/* <div className="flex gap-4 justify-center my-8 flex-wrap">
         {isCategoriesPending
           ? Array.from({ length: categories?.length ?? 7 }).map((_, index) => (
               <Skeleton
@@ -47,7 +53,7 @@ const ProductsContainer = () => {
                 {category}
               </Button>
             ))}
-      </div>
+      </div> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {isProductPending
           ? Array.from({ length: 10 }).map((_, index) => (
@@ -63,6 +69,13 @@ const ProductsContainer = () => {
               <ProductCard key={product.id} product={product} />
             ))}
       </div>
+      <Button
+        className="my-8"
+        onClick={() => fetchNextPage()}
+        disabled={!hasNextPage}
+      >
+        {isFetchingNextPage ? "Loading..." : "Load More"}
+      </Button>
     </div>
   );
 };

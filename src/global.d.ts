@@ -12,15 +12,24 @@ declare global {
     onSale?: boolean;
     popular?: boolean;
   };
+  type ProductRes = {
+    status: string;
+    message: string;
+    products: ProductModel[];
+  };
+  type Data = {
+    pageParams: number[];
+    pages: ProductRes[];
+  };
 
-  type Categories =
-    | "tv"
-    | "audio"
-    | "laptop"
-    | "mobile"
-    | "gaming"
-    | "appliances"
-    | "all";
+  // type Categories =
+  //   | "tv"
+  //   | "audio"
+  //   | "laptop"
+  //   | "mobile"
+  //   | "gaming"
+  //   | "appliances"
+  //   | "all";
 
   // type CategoriesRes = {
   //   status : string;
@@ -30,11 +39,10 @@ declare global {
 
   type Theme = "dark" | "light" | "system";
 
-  type PageParams = {
-    filter: Categories;
-    page: number;
-  };
-  
+  // type PageParams = {
+  //   filter: Categories;
+  //   page: number;
+  // };
 }
 
 export {};
