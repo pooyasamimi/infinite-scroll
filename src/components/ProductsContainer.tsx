@@ -21,6 +21,7 @@ const ProductsContainer = () => {
 
   const { data: categories, isPending: isCategoriesPending } = useCategories();
 
+
   return (
     <div className="container">
       <div className="text-center mt-12">

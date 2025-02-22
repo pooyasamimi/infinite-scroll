@@ -9,7 +9,6 @@ const usePagination = (pageParams: PageParams) => {
       const result = await axios.get(
         'https://fakestoreapi.in/api/products?limit=150'
       );
-      console.log(result.data.products);
 
       return result.data.products;
     },
