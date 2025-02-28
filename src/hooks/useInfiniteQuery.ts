@@ -1,5 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useCallback } from "react";
 
 export default function useInfiniteProducts() {
   const limitPerPage: number = 20;
@@ -29,10 +30,11 @@ export default function useInfiniteProducts() {
         }
         return pages.length + 1;
       },
-      select: (data) => {
-        console.log(data.pages.flatMap((page) => page.products));
+      select: useCallback((data: Data) => {
+        console.log("Getting data");
+
         return data.pages.flatMap((page) => page.products);
-      },
+      }, []),
     });
 
   return {

@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { HeartIcon, PlusIcon } from "lucide-react";
-import { useState } from "react";
 
 export default function ProductCard({ product }: { product: ProductModel }) {
-  const [imgErr, setImgErr] = useState<boolean>(false);
   //vase inke agar tasvir load nashod hazf she
-  if (imgErr) {
-    return null;
-  }
+  // const [imgErr, setImgErr] = useState<boolean>(false);
+  // if (imgErr) {
+  //   return setImgErr('/public/api-error.jpg')
+  // }
   return (
     <div className="group space-y-4 shadow-xl p-3">
       <figure className="group-hover:opacity-90">
@@ -15,7 +14,7 @@ export default function ProductCard({ product }: { product: ProductModel }) {
           className="w-full rounded-lg aspect-square object-cover drop-shadow-lg"
           src={product.image}
           alt={product.title}
-          onError={() => setImgErr(true)}
+          onError={(e) => (e.currentTarget.src = "/api-error.jpg")}
         />
       </figure>
       <div className="flex flex-col">
