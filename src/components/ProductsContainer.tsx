@@ -24,8 +24,8 @@ const ProductsContainer = () => {
       ([entry]) => {
         if (entry.isIntersecting && hasNextPage) {
           fetchNextPage();
-          observer.unobserve(target);
         }
+        
       },
       {
         threshold: 1,
@@ -40,7 +40,7 @@ const ProductsContainer = () => {
       observer.disconnect();
     };
   }, [fetchNextPage, hasNextPage]);
-
+  
   return (
     <>
       <div className="container text-center">

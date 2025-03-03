@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback } from "react";
 
 export default function useInfiniteProducts() {
-  const limitPerPage: number = 20;
+  const limitPerPage: number = 10;
   const { data, isPending, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<
       ProductRes,
@@ -28,11 +28,10 @@ export default function useInfiniteProducts() {
         ) {
           return undefined;
         }
+
         return pages.length + 1;
       },
       select: useCallback((data: Data) => {
-        console.log("Getting data");
-
         return data.pages.flatMap((page) => page.products);
       }, []),
     });
